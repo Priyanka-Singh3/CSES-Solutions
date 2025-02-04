@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CountingNumbers",
+            "request": "launch",
+            "mainClass": "CountingNumbers",
+            "projectName": "DP_3099c753"
+        },
+        {
+            "type": "java",
+            "name": "CountingTiles",
+            "request": "launch",
+            "mainClass": "CountingTiles",
+            "projectName": "DP_3099c753"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "ArrayDescription",
+            "request": "launch",
+            "mainClass": "ArrayDescription",
+            "projectName": "DP_3099c753"
+        },
+        {
+            "type": "java",
+            "name": "DiceComb",
+            "request": "launch",
+            "mainClass": "DiceComb",
+            "projectName": "DP_3099c753"
+        },
+        {
+            "type": "java",
+            "name": "MinimizingCoins",
+            "request": "launch",
+            "mainClass": "MinimizingCoins",
+            "projectName": "DP_3099c753"
+        },
+        {
+            "type": "java",
+            "name": "test",
+            "request": "launch",
+            "mainClass": "test",
+            "projectName": "DP_3099c753"
+        }
+    ]
+}
