@@ -15,65 +15,67 @@ class FastIO extends PrintWriter{
     }
 }
 
-public class  RoundTrip {
+public class  Cycle_Finding {
     static FastIO sc = new FastIO();
 
-    public static ArrayList<Integer> path = new ArrayList<>();
-    public static int start = -1;
-    public static boolean dfs(int i, int par, boolean vis[], ArrayList<Integer> adj[]) {
-        vis[i] = true;
-        boolean check = false;
-        for(int adjNode: adj[i]) {
-            if(!vis[adjNode]) {
-                if (dfs(adjNode, i, vis, adj)) {
-                    if (start != -1) {
-                        path.add(i);
-                        if (i == start) start = -1; // Stop adding once full cycle is captured
-                    }
-                    return true;
-                }
-            }
-            else if(par != adjNode) {
-                path.add(0, i);
-                start = adjNode;
-                return true;
-            }
+    static class Edge {
+        int u;
+        int v;
+        long wt;
+        
+        public Edge(int u, int v, long wt) {
+            this.u = u;
+            this.v = v;
+            this.wt = wt;
         }
-        return false;
     }
-
     public static void main(String args[]){
         int n = sc.nextInt();
         int m = sc.nextInt();
-        ArrayList<Integer> adj[] = new ArrayList[n];
-        for(int i = 0; i < n; i++) {
+
+        ArrayList<Edge>[] adj = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++) {
             adj[i] = new ArrayList<>();
         }
-        while(m-- > 0) {
-            int a = sc.nextInt()-1;
-            int b = sc.nextInt()-1;
 
-            adj[a].add(b);
-            adj[b].add(a);
+        for (int i = 0; i < m; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            long c = sc.nextLong();
+            adj[a].add(new Edge(a, b, c));
         }
-        boolean vis[] = new boolean[n];
-        for(int i = 0; i < n; i++) {
-            if(!vis[i]) {
-                if(dfs(i, -1, vis, adj)) {
-                    break;
+
+        long dist[] = new long[n+1];
+        Arrays.fill(dist, Long.MAX_VALUE);
+        dist[1] = 0;
+        for(int i = 0; i < n-1; i++) {
+            for(int j = 1; j <= n; j++) {
+                for(Edge e: adj[j]) {
+                    int adjNode = e.v;
+                    long w = e.wt;
+                    if(dist[j] != Long.MAX_VALUE && dist[j] + w < dist[adjNode]) {
+                        dist[adjNode] = dist[j] + w;
+                    }
                 }
             }
         }
 
-        if (path.isEmpty()) {
-            System.out.println("IMPOSSIBLE");
-            return;
+        //to find negative cycle
+        for(int j = 1; j < n; j++) {
+            for(Edge e: adj[j]) {
+                int adjNode = e.v;
+                long w = e.wt;
+                if(dist[j] != Long.MAX_VALUE && dist[j] + w < dist[adjNode]) {
+                    // there is a negative cycle
+                    // find the negative cycle and print it 
+                    
+                    sc.println("YES");
+                    return;
+                }
+            }
         }
-        
-        System.out.println(path.size()+1);
-        path.add(path.get(0));
-        for (int node : path) {
-            System.out.print((node + 1) + " ");
-        }
-        System.out.println();
+        sc.println("NO");
+
+        sc.flush();
+    }
 }
